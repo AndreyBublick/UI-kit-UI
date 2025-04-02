@@ -13,12 +13,12 @@ export type ButtonProps<T extends ElementType = 'button'> = {
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
-  const { as: Component = 'button', fullWidth, variant = 'primary', ...rest } = props
+  const { as: Component = 'button', variant = 'primary', ...rest } = props
 
   return <StyledButton as={Component} variant={variant} {...rest} />
 }
 
-const StyledButton = styled.button<{ variant: ButtonVariant }>`
+const StyledButton = styled.button<{ fullWidth?: boolean; variant: ButtonVariant }>`
   all: unset;
 
   cursor: pointer;
@@ -32,6 +32,7 @@ const StyledButton = styled.button<{ variant: ButtonVariant }>`
     outline: 2px solid lightcoral;
     outline-offset: 2px;
   }
+  ${({ fullWidth }) => (fullWidth ? `width:100%` : `width:auto`)};
 
   ${({ variant }) => {
     switch (variant) {
